@@ -1,16 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import Navbar from './components/Navbar';
+import HomePage from './views/HomePage';
+import TransactionsPage from './views/TransactionsPage';
+
 import './App.css';
+
+import { TransactionProvider } from './TransactionContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-    </div>
+    <TransactionProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/transaction-list"
+              element={<TransactionsPage />}
+            />
+          </Routes>
+        </div>
+      </Router>
+    </TransactionProvider>
   );
 }
 
