@@ -7,7 +7,7 @@ const TransactionList = ({ transactions, handleEdit }) => {
   const [filterValue, setFilterValue] = React.useState('');
   const [sortBy, setSortBy] = React.useState(null);
   const [sortOrder, setSortOrder] = React.useState('asc');
-  
+
   // check if user is on HomePage
   const isHomePAge = window.location.pathname === '/';
 
@@ -43,13 +43,13 @@ const TransactionList = ({ transactions, handleEdit }) => {
   };
 
   const sortedTransactions = transactions.sort((a, b) => {
-    if (sortBy) {
+    if (sortBy === 'id') {
+      return a.id - b.id;
+    } else {
       const valueA = a[sortBy];
       const valueB = b[sortBy];
       if (valueA < valueB) return sortOrder === 'asc' ? -1 : 1;
       if (valueA > valueB) return sortOrder === 'asc' ? 1 : -1;
-      return 0;
-    } else {
       return 0;
     }
   });
@@ -80,7 +80,7 @@ const TransactionList = ({ transactions, handleEdit }) => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th onClick={handleSort.bind(null, 'id')}>ID</th>
             <th onClick={() => handleSort('title')}>
               Title {sortBy === 'title' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
             </th>
