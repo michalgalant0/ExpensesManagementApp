@@ -81,7 +81,7 @@ const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction 
       <label>
         Date:
         <input
-          type="text"
+          type="date"
           name="date"
           value={transaction.date}
           onChange={handleChange}
