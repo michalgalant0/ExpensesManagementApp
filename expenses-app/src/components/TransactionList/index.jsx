@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import { TransactionContext } from '../../TransactionContext';
+import React from 'react';
 
 import TransactionListRow from '../TransactionListRow';
 
-const TransactionList = () => {
-  const { transactions, deleteTransaction, editTransaction } = useContext(TransactionContext);
+const TransactionList = ({ transactions, handleEdit }) => {
+  
+  // check if user is on HomePage
+  const isHomePAge = window.location.pathname === '/';
 
   return (
     <div>
@@ -19,7 +20,7 @@ const TransactionList = () => {
             <th>Amount</th>
             <th>Currency</th>
             <th>Comment</th>
-            <th>Actions</th>
+            {isHomePAge ? null : <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -27,8 +28,7 @@ const TransactionList = () => {
             <TransactionListRow
               key={transaction.id}
               transaction={transaction}
-              deleteTransaction={deleteTransaction}
-              editTransaction={editTransaction}
+              handleEdit={handleEdit}
             />
           ))}
         </tbody>

@@ -1,40 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { TransactionContext } from '../../TransactionContext';
 
 import TransactionList from '../../components/TransactionList';
 import TransactionForm from '../../components/TransactionForm';
 
 const TransactionsPage = () => {
-  const [editMode, setEditMode] = useState(false);
-  const [editedTransaction, setEditedTransaction] = useState(null);
+  const { transactions, addTransaction, editedTransaction, editTransaction, updateTransaction } = useContext(TransactionContext);
 
-  const { transactions, addTransaction, deleteTransaction, editTransaction } = useContext(TransactionContext);
-
-  const handleEdit = (transaction) => {
-    setEditMode(true);
-    setEditedTransaction(transaction);
-  };
-
-  const handleSave = (updatedTransaction) => {
-    editTransaction(editedTransaction.id, updatedTransaction);
-    setEditMode(false);
-    setEditedTransaction(null);
-  };
+  const handleEdit = (id) => {
+    editTransaction(id);
+  }
 
   return (
     <div>
       <TransactionForm
         addTransaction={addTransaction}
-        editMode={editMode}
         editedTransaction={editedTransaction}
-        handleSave={handleSave}
+        updateTransaction={updateTransaction}
       />
       <TransactionList
         transactions={transactions}
-        deleteTransaction={deleteTransaction}
         handleEdit={handleEdit}
-        editMode={editMode}
-        editedTransaction={editedTransaction}
       />
     </div>
   );

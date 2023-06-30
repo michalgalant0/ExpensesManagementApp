@@ -5,14 +5,12 @@ import { TransactionContext } from '../../TransactionContext';
 import TransactionList from '../../components/TransactionList';
 
 const HomePage = () => {
-  const { transactions, deleteTransaction, editTransaction } = useContext(TransactionContext);
+  const { transactions } = useContext(TransactionContext);
 
   return (
     <div>
       <TransactionList
         transactions={transactions}
-        deleteTransaction={deleteTransaction}
-        editTransaction={editTransaction}
       />
     </div>
   );

@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-const TransactionForm = ({
-  addTransaction,
-  editMode,
-  editedTransaction,
-  handleSave,
-}) => {
+const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction }) => {
   const [transaction, setTransaction] = useState({
     id: '',
     title: '',
     category: '',
     date: '',
-    amount: '',
+    amount: 0,
     currency: '',
     comment: '',
   });
 
   useEffect(() => {
-    if (editMode && editedTransaction) {
+    if (editedTransaction) {
       setTransaction(editedTransaction);
     }
-  }, [editMode, editedTransaction]);
+  }, [editedTransaction]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,25 +27,27 @@ const TransactionForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (editMode) {
-      handleSave(transaction);
+
+    if (editedTransaction) {
+      updateTransaction(transaction);
     } else {
       addTransaction(transaction);
-      setTransaction({
-        id: '',
-        title: '',
-        category: '',
-        date: '',
-        amount: '',
-        currency: '',
-        comment: '',
-      });
     }
+
+    setTransaction({
+      id: '',
+      title: '',
+      category: '',
+      date: '',
+      amount: 0,
+      currency: '',
+      comment: '',
+    });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{editMode ? 'Edit Transaction' : 'Add Transaction'}</h2>
+      <h2>{editedTransaction ? 'Edit transaction' : 'Add transaction'}</h2>
       <label>
         ID:
         <input
@@ -121,7 +118,7 @@ const TransactionForm = ({
           required
         />
       </label>
-      <button type="submit">{editMode ? 'Save' : 'Add'}</button>
+      <button type="submit">{editedTransaction ? 'Save' : 'Add'}</button>
     </form>
   );
 };

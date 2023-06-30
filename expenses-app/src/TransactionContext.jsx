@@ -4,43 +4,55 @@ export const TransactionContext = createContext();
 
 export const TransactionProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([
+    // test dataSet
     {
       id: 1,
-      title: 'tit1',
-      category: 'cat1',
-      date: '20.05.2023',
-      amount: '120',
-      currency: 'PLN',
-      comment: 'some comment'
+      title: 'Transaction 1',
+      category: 'Category 1',
+      date: '2023-06-28',
+      amount: 100,
+      currency: 'USD',
+      comment: 'Comment 1',
     },
     {
       id: 2,
-      title: 'tit2',
-      category: 'cat1',
-      date: '01.06.2023',
-      amount: '1209',
-      currency: 'GBP',
-      comment: 'some comment'
+      title: 'Transaction 2',
+      category: 'Category 2',
+      date: '2023-06-27',
+      amount: 200,
+      currency: 'EUR',
+      comment: 'Comment 2',
     },
     {
       id: 3,
-      title: 'tit1',
-      category: 'cat2',
-      date: '19.06.2023',
-      amount: '40',
-      currency: 'PLN',
-      comment: 'some comment'
+      title: 'Transaction 3',
+      category: 'Category 1',
+      date: '2023-06-26',
+      amount: 300,
+      currency: 'USD',
+      comment: 'Comment 3',
     },
     {
       id: 4,
-      title: 'tit1',
-      category: 'cat3',
-      date: '23.06.2023',
-      amount: '5',
+      title: 'Transaction 4',
+      category: 'Category 3',
+      date: '2023-06-25',
+      amount: 400,
+      currency: 'GBP',
+      comment: 'Comment 4',
+    },
+    {
+      id: 5,
+      title: 'Transaction 5',
+      category: 'Category 2',
+      date: '2023-06-24',
+      amount: 500,
       currency: 'EUR',
-      comment: 'some comment'
-    }
+      comment: 'Comment 5',
+    },
   ]);
+
+  const [editedTransaction, setEditedTransaction] = useState(null);
 
   const addTransaction = (transaction) => {
     setTransactions([...transactions, transaction]);
@@ -53,14 +65,18 @@ export const TransactionProvider = ({ children }) => {
     setTransactions(updatedTransactions);
   };
 
-  const editTransaction = (id, updatedTransaction) => {
-    const updatedTransactions = transactions.map((transaction) => {
-      if (transaction.id === id) {
-        return { ...transaction, ...updatedTransaction };
-      }
-      return transaction;
-    });
-    setTransactions(updatedTransactions);
+  const editTransaction = (id) => {
+    const transactionToEdit = transactions.find((transaction) => transaction.id === id);
+    setEditedTransaction(transactionToEdit);
+  };
+
+  const updateTransaction = (updatedTransaction) => {
+    setTransactions((prevTransactions) =>
+      prevTransactions.map((transaction) =>
+        transaction.id === updatedTransaction.id ? updatedTransaction : transaction
+      )
+    );
+    setEditedTransaction(null);
   };
 
   return (
@@ -69,7 +85,9 @@ export const TransactionProvider = ({ children }) => {
         transactions,
         addTransaction,
         deleteTransaction,
-        editTransaction
+        editTransaction,
+        updateTransaction,
+        editedTransaction
       }}
     >
       {children}

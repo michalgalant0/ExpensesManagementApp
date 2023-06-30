@@ -1,55 +1,23 @@
-// import React from 'react';
+import React, { useContext } from 'react';
 
-// const TransactionListRow = ({
-//   transaction,
-//   deleteTransaction,
-//   handleEdit,
-//   isEdited,
-//   editedTransaction,
-// }) => {
-//   const handleDelete = () => {
-//     deleteTransaction(transaction.id);
-//   };
+import { TransactionContext } from '../../TransactionContext';
 
-//   const handleEditClick = () => {
-//     handleEdit(transaction);
-//   };
+const TransactionListRow = ({ transaction, handleEdit }) => {
+  const { deleteTransaction } = useContext(TransactionContext);
 
-//   return (
-//     <tr className={isEdited ? 'edited' : ''}>
-//       <td>{transaction.id}</td>
-//       <td>{transaction.title}</td>
-//       <td>{transaction.category}</td>
-//       <td>{transaction.date}</td>
-//       <td>{transaction.amount}</td>
-//       <td>{transaction.currency}</td>
-//       <td>{transaction.comment}</td>
-//       <td>
-//         <button onClick={handleEditClick}>Edit</button>
-//         <button onClick={handleDelete}>Delete</button>
-//       </td>
-//     </tr>
-//   );
-// };
+  // const handleEdit = () => {
+  //   editTransaction(transaction.id);
+  // }
 
-// export default TransactionListRow;
-
-import React from 'react';
-
-const TransactionListRow = ({
-  transaction,
-  deleteTransaction,
-  editTransaction,
-}) => {
   const handleDelete = () => {
-    deleteTransaction(transaction.id);
+    var messageString = `are you sure you want to delete transaction ${transaction.title}?`
+    const confirmDelete = window.confirm(messageString)
+    if (confirmDelete)
+      deleteTransaction(transaction.id);
   };
 
-  const handleEditClick = () => {
-    editTransaction(transaction.id, {
-      ...transaction,
-    });
-  };
+  // check if user is on HomePage
+  const isHomePAge = window.location.pathname === '/';
 
   return (
     <tr>
@@ -60,10 +28,13 @@ const TransactionListRow = ({
       <td>{transaction.amount}</td>
       <td>{transaction.currency}</td>
       <td>{transaction.comment}</td>
-      <td>
-        <button onClick={handleEditClick}>Edit</button>
-        <button onClick={handleDelete}>Delete</button>
-      </td>
+      {
+      isHomePAge ? null : 
+        <td>
+          <button onClick={() => handleEdit(transaction.id)}>Edit</button>
+          <button onClick={handleDelete}>Delete</button>
+        </td>
+      }
     </tr>
   );
 };
