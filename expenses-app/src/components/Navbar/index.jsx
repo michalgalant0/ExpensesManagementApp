@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const handleLogout = () => {
-    sessionStorage.removeItem('user_id')
-    window.location = '/'
+    sessionStorage.removeItem('person_id')
+    window.location = '/login'
   }
 
   return (

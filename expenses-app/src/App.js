@@ -10,14 +10,14 @@ import RegisterPage from './views/RegisterPage';
 import { TransactionProvider } from './TransactionContext';
 
 function App() {
-  const user = sessionStorage.getItem('user_id');
+  const person = sessionStorage.getItem('person_id');
 
   return (
     <TransactionProvider>
       <Router>
-        {user && <Navbar />}
+        {person && <Navbar />}
         <Routes>
-          {!user ? (
+          {!person ? (
             <React.Fragment>
               <Route path='/' element={<LoginPage />} />
               <Route path='/register' element={<RegisterPage />} />
@@ -38,15 +38,17 @@ function App() {
 export default App;
 
 // coś probuje dzialac
-{/* <TransactionProvider>
+{/*
+<TransactionProvider>
 <Router>
-  {user && <Navbar />}
+  {person && <Navbar />}
   <Routes>
-    {user && <Route path='/' exact element={<HomePage />} />}
+    {person && <Route path='/' exact element={<HomePage />} />}
     <Route path='/login' exact element={<LoginPage />} />
     <Route path='/register' exact element={<RegisterPage />} />
     <Route path='/' element={<Navigate replace to='/login' />} />
     <Route path='/transactions' exact element={<TransactionsPage />} />
   </Routes>
 </Router>
-</TransactionProvider> */}
+</TransactionProvider>
+*/}

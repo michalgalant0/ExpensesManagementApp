@@ -1,27 +1,40 @@
 import React, { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+import axios from "axios"
 
 const RegisterForm = () => {
     const [data, setData] = useState({
-        nickName: '',
+        nickname: '',
         email: '',
         password: ''
     })
-
-    const navigate = useNavigate()
+    const [error, setError] = useState('')
 
     const handleChange = ({ currentTarget: input }) => {
         setData({ ...data, [input.name]: input.value })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        try {
+            const url = "http://localhost:8080/api/register"
+            const { data: res } = await axios.post(url, data)
+            window.location = '/'
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                setError(error.response.data.message)
+            }
+        }
 
-        console.log('register user action')
-        console.log(data)
-        sessionStorage.setItem('user_id', 1)
-        // navigate('/')
-        window.location = '/'
+        // console.log('register user action')
+        // console.log(data)
+        // sessionStorage.setItem('user_id', 1)
+        // // navigate('/')
+        // window.location = '/'
     }
 
     return (
@@ -31,9 +44,9 @@ const RegisterForm = () => {
                 <input
                     type="text"
                     placeholder="nickname"
-                    name="nickName"
+                    name="nickname"
                     onChange={handleChange}
-                    value={data.nickName}
+                    value={data.nickname}
                     required
                 />
                 <input
@@ -54,6 +67,7 @@ const RegisterForm = () => {
                 />
                 <button type="submit">register</button>
             </form>
+            {error && <p>{error}</p>}
             <div>
                 <Link to="/login">login</Link>
             </div>
