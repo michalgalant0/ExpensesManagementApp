@@ -29,12 +29,6 @@ const RegisterForm = () => {
                 setError(error.response.data.message)
             }
         }
-
-        // console.log('register user action')
-        // console.log(data)
-        // sessionStorage.setItem('user_id', 1)
-        // // navigate('/')
-        // window.location = '/'
     }
 
     return (

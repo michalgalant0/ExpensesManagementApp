@@ -36,19 +36,3 @@ function App() {
 }
 
 export default App;
-
-// coś probuje dzialac
-{/*
-<TransactionProvider>
-<Router>
-  {person && <Navbar />}
-  <Routes>
-    {person && <Route path='/' exact element={<HomePage />} />}
-    <Route path='/login' exact element={<LoginPage />} />
-    <Route path='/register' exact element={<RegisterPage />} />
-    <Route path='/' element={<Navigate replace to='/login' />} />
-    <Route path='/transactions' exact element={<TransactionsPage />} />
-  </Routes>
-</Router>
-</TransactionProvider>
-*/}

@@ -27,12 +27,6 @@ const LoginForm = () => {
                 setError(error.response.data.message)
             }
         }
-
-        // console.log('login user action')
-        // console.log(data)
-        // sessionStorage.setItem('user_id', 1)
-        // // navigate('/')
-        // window.location = '/'
     }
 
     return (
