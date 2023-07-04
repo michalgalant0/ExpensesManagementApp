@@ -1,20 +1,27 @@
 package com.example.ExpensesApp;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Transaction {
-    @Id @GeneratedValue
-    private Long transaction_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transaction_id")
+    private int transactionId;
+    @Column(name = "title")
     private String title;
+    @Column(name = "amount")
     private float amount;
-    private Long currencyId;
+    @Column(name = "currency_id")
+    private int currencyId;
+    @Column(name = "date")
     private String date;
-    private Long categoryId;
+    @Column(name = "category_id")
+    private int categoryId;
+    @Column(name = "description")
     private String description;
-    private Long userId;
+    @Column(name = "person_id")
+    private int personId;
 }

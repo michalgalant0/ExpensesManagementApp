@@ -12,7 +12,7 @@ public class PersonController {
     }
 
     @PostMapping("/api/register")
-    Person save (@RequestBody Person newPerson) {
+    Person register (@RequestBody Person newPerson) {
         return this.repository.save(newPerson);
     }
 
@@ -26,7 +26,7 @@ public class PersonController {
                 .orElseThrow(() -> new RuntimeException("user not found"));
 
         if (person.getPassword().equals(password))
-            return new LoginResponse ((long) person.getPerson_id());
+            return new LoginResponse (person.getPersonId());
         else
             throw new RuntimeException("wrong login data");
     }

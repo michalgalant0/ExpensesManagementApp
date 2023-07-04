@@ -1,16 +1,19 @@
 package com.example.ExpensesApp;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Person {
-    @Id @GeneratedValue
-    private int person_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "person_id")
+    private int personId;
+    @Column(name = "nickname")
     private String nickname;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
 }

@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 public class LoginResponse {
-    private Long person_id;
+    private int personId;
 }
