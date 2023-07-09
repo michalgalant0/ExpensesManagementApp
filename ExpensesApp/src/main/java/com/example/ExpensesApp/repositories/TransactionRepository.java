@@ -1,5 +1,6 @@
-package com.example.ExpensesApp;
+package com.example.ExpensesApp.repositories;
 
+import com.example.ExpensesApp.models.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

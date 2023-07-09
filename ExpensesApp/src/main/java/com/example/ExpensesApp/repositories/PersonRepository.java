@@ -1,5 +1,6 @@
-package com.example.ExpensesApp;
+package com.example.ExpensesApp.repositories;
 
+import com.example.ExpensesApp.models.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

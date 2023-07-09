@@ -1,10 +1,12 @@
-package com.example.ExpensesApp;
+package com.example.ExpensesApp.models;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Table(name = "transaction")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +15,7 @@ public class Transaction {
     @Column(name = "title")
     private String title;
     @Column(name = "amount")
-    private float amount;
+    private double amount;
     @Column(name = "currency_id")
     private int currencyId;
     @Column(name = "date")

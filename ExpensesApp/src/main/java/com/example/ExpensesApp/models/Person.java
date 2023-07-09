@@ -1,10 +1,12 @@
-package com.example.ExpensesApp;
+package com.example.ExpensesApp.models;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Table(name = "person")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

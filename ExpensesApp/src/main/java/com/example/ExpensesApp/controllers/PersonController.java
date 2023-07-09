@@ -1,8 +1,13 @@
-package com.example.ExpensesApp;
+package com.example.ExpensesApp.controllers;
 
+import com.example.ExpensesApp.LoginRequest;
+import com.example.ExpensesApp.LoginResponse;
+import com.example.ExpensesApp.models.Person;
+import com.example.ExpensesApp.repositories.PersonRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/person")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PersonController {
     private PersonRepository repository;
@@ -11,13 +16,13 @@ public class PersonController {
         this.repository = repository;
     }
 
-    @PostMapping("/api/register")
+    @PostMapping("/register")
     Person register (@RequestBody Person newPerson) {
         return this.repository.save(newPerson);
     }
 
     // metoda zwroci id uzytkownika do zapisania w sessionStorage
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     LoginResponse login (@RequestBody LoginRequest req) {
         String email = req.getEmail();
         String password = req.getPassword();

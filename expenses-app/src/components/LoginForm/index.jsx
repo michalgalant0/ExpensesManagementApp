@@ -16,7 +16,7 @@ const LoginForm = () => {
         try {
             const url = "http://localhost:8080/api/login"
             const { data: res } = await axios.post(url, data)
-            sessionStorage.setItem('person_id', res.person_id)
+            sessionStorage.setItem('person_id', res.personId)
             window.location = "/"
         } catch (error) {
             if (
