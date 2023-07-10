@@ -49,10 +49,10 @@ public class TransactionController {
 
     // send converted transaction (id->name/code) to client
     @GetMapping("/{transaction_id}")
-    public TransactionDTO getTransaction (@PathVariable("transaction_id") int transactionId) {
-        Transaction transaction = this.repository.findById(transactionId)
+    public TransactionDTO getTransaction (@PathVariable("transaction_id") int id) {
+        Transaction transaction = this.repository.findById(id)
                 .orElseThrow(() -> new RuntimeException(
-                        String.format("no transaction %s found", transactionId)
+                        String.format("no transaction %s found", id)
                 ));
 
         return mapTransactionToDTO(transaction);
@@ -60,15 +60,17 @@ public class TransactionController {
 
     // get transactions id and remove it from database
     @DeleteMapping("/{transaction_id}")
-    public void deleteTransaction (@PathVariable("transaction_id") int transaction_id) {
-        this.repository.deleteById(transaction_id);
+    public void deleteTransaction (@PathVariable("transaction_id") int id) {
+        this.repository.deleteById(id);
     }
 
     // update transaction with given id to given form (require conversion name->id)
-    // if transaction with this id doesnt exist it will add new
+    // if transaction with this id doesn't exist it will add new
     @PutMapping("/{transaction_id}")
-    public Transaction updateTransaction (@PathVariable("transaction_id") int transactionId, @RequestBody TransactionDTO newTransactionDTO) {
-        return this.repository.findById(transactionId).map(transaction -> {
+    public Transaction updateTransaction (
+            @PathVariable("transaction_id") int id,
+            @RequestBody TransactionDTO newTransactionDTO) {
+        return this.repository.findById(id).map(transaction -> {
             // id is the same
             transaction.setTitle(newTransactionDTO.getTitle());
             transaction.setAmount(newTransactionDTO.getAmount());
@@ -85,9 +87,11 @@ public class TransactionController {
             );
             transaction.setDescription(newTransactionDTO.getDescription());
             // person_id is unchangeable
+            transaction.setPersonId(newTransactionDTO.getPersonId());
+
             return this.repository.save(transaction);
         }).orElseGet(() -> {
-            newTransactionDTO.setTransactionId(transactionId);
+            newTransactionDTO.setId(id);
             return this.repository.save(mapDTOToTransaction(newTransactionDTO));
         });
     }
@@ -96,7 +100,7 @@ public class TransactionController {
     private TransactionDTO mapTransactionToDTO (Transaction transaction) {
         TransactionDTO transactionDTO = new TransactionDTO();
 
-        transactionDTO.setTransactionId(transaction.getTransactionId());
+        transactionDTO.setId(transaction.getId());
         transactionDTO.setTitle(transaction.getTitle());
         transactionDTO.setAmount(transaction.getAmount());
         transactionDTO.setDate(transaction.getDate());
@@ -121,7 +125,7 @@ public class TransactionController {
     private Transaction mapDTOToTransaction (TransactionDTO transactionDTO) {
         Transaction transaction = new Transaction();
 
-        transaction.setTransactionId(transactionDTO.getTransactionId());
+        transaction.setId(transactionDTO.getId());
         transaction.setTitle(transactionDTO.getTitle());
         transaction.setAmount(transactionDTO.getAmount());
         transaction.setDate(transactionDTO.getDate());

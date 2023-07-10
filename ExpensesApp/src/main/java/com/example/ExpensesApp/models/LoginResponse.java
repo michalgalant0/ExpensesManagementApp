@@ -1,4 +1,4 @@
-package com.example.ExpensesApp;
+package com.example.ExpensesApp.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter @Setter
 @AllArgsConstructor
-public class LoginRequest {
-    private String email;
-    private String password;
+public class LoginResponse {
+    private int personId;
 }

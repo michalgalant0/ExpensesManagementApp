@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { TransactionContext } from '../../TransactionContext';
+import { TransactionContext } from '../../contexts/TransactionContext';
 
 import TransactionList from '../../components/TransactionList';
 

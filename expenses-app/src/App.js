@@ -7,31 +7,35 @@ import TransactionsPage from './views/TransactionsPage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
 
-import { TransactionProvider } from './TransactionContext';
+import { TransactionProvider } from './contexts/TransactionContext';
+import { CategoryProvider } from './contexts/CategoryContext';
+import { CurrencyProvider } from './contexts/CurrencyContext';
 
 function App() {
   const person = sessionStorage.getItem('person_id');
 
   return (
-    <TransactionProvider>
       <Router>
         {person && <Navbar />}
-        <Routes>
-          {!person ? (
-            <React.Fragment>
+          {person ? (
+            <TransactionProvider>
+            <CategoryProvider>
+            <CurrencyProvider>
+              <Routes>
+                <Route path='/' element={<HomePage />} />
+                <Route path='/transactions' element={<TransactionsPage />} />
+              </Routes>
+            </CurrencyProvider>
+            </CategoryProvider>
+            </TransactionProvider>
+          ) : (
+            <Routes>
               <Route path='/' element={<LoginPage />} />
               <Route path='/register' element={<RegisterPage />} />
               <Route path='/*' element={<Navigate to='/' />} />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <Route path='/' element={<HomePage />} />
-              <Route path='/transactions' element={<TransactionsPage />} />
-            </React.Fragment>
+            </Routes>
           )}
-        </Routes>
       </Router>
-    </TransactionProvider>
   );
 }
 

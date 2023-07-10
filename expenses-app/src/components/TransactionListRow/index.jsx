@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 
-import { TransactionContext } from '../../TransactionContext';
+import { TransactionContext } from '../../contexts/TransactionContext';
+import { CurrencyContext } from '../../contexts/CurrencyContext';
 
 const TransactionListRow = ({ transaction, handleEdit }) => {
   const { deleteTransaction } = useContext(TransactionContext);
-
-  // const handleEdit = () => {
-  //   editTransaction(transaction.id);
-  // }
+  const { getCurrencyName } = useContext(CurrencyContext);
 
   const handleDelete = () => {
     var messageString = `are you sure you want to delete transaction ${transaction.title}?`
@@ -21,13 +19,17 @@ const TransactionListRow = ({ transaction, handleEdit }) => {
 
   return (
     <tr>
-      <td>{transaction.id}</td>
+      <td>{transaction.tmpId}</td>
       <td>{transaction.title}</td>
-      <td>{transaction.category}</td>
+      <td>{transaction.categoryName}</td>
       <td>{transaction.date}</td>
       <td>{transaction.amount}</td>
-      <td>{transaction.currency}</td>
-      <td>{transaction.comment}</td>
+      <td
+        title={getCurrencyName(transaction.currencyCode)}
+      >
+        {transaction.currencyCode}
+      </td>
+      <td>{transaction.description}</td>
       {
       isHomePAge ? null : 
         <td>

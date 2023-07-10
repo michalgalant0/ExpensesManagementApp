@@ -14,7 +14,7 @@ const LoginForm = () => {
         e.preventDefault()
 
         try {
-            const url = "http://localhost:8080/api/login"
+            const url = "http://localhost:8080/api/person/login"
             const { data: res } = await axios.post(url, data)
             sessionStorage.setItem('person_id', res.personId)
             window.location = "/"

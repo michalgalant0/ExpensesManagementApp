@@ -17,8 +17,8 @@ const RegisterForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const url = "http://localhost:8080/api/register"
-            const { data: res } = await axios.post(url, data)
+            const url = "http://localhost:8080/api/person/register"
+            await axios.post(url, data)
             window.location = '/'
         } catch (error) {
             if (

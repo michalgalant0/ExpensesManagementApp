@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { CategoryContext } from '../../contexts/CategoryContext';
+import { CurrencyContext } from '../../contexts/CurrencyContext';
 
 const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction }) => {
+  const categories = useContext(CategoryContext)
+  const { currencies, getCurrencyName } = useContext(CurrencyContext)
+  
   const [transaction, setTransaction] = useState({
     id: '',
     title: '',
-    category: '',
+    categoryName: '',
     date: '',
     amount: 0,
-    currency: '',
-    comment: '',
+    currencyCode: '',
+    description: '',
   });
 
   useEffect(() => {
@@ -37,27 +42,25 @@ const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction 
     setTransaction({
       id: '',
       title: '',
-      category: '',
+      categoryName: '',
       date: '',
       amount: 0,
-      currency: '',
-      comment: '',
+      currencyCode: '',
+      description: '',
     });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>{editedTransaction ? 'Edit transaction' : 'Add transaction'}</h2>
-      <label>
-        ID:
-        <input
-          type="text"
-          name="id"
-          value={transaction.id}
-          onChange={handleChange}
-          required
-        />
-      </label>
+      {
+        editedTransaction ?
+          <div>
+            Edited transaction: {transaction.tmpId}
+            <hr />
+          </div>
+          : ''
+      }
       <label>
         Title:
         <input
@@ -70,13 +73,19 @@ const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction 
       </label>
       <label>
         Category:
-        <input
-          type="text"
-          name="category"
-          value={transaction.category}
+        <select
+          name="categoryName"
+          value={transaction.categoryName}
           onChange={handleChange}
           required
-        />
+        >
+          {categories.map(category => (
+            // different way of key generating - removed error with non-unique keys
+            <option key={`${category.id}-${category.name}`} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </label>
       <label>
         Date:
@@ -91,7 +100,7 @@ const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction 
       <label>
         Amount:
         <input
-          type="text"
+          type="number"
           name="amount"
           value={transaction.amount}
           onChange={handleChange}
@@ -100,20 +109,30 @@ const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction 
       </label>
       <label>
         Currency:
-        <input
-          type="text"
-          name="currency"
-          value={transaction.currency}
+        <select
+          name="currencyCode"
+          value={transaction.currencyCode}
           onChange={handleChange}
           required
-        />
+        >
+          {currencies.map(currency => (
+            // different way of key generating - removed error with non-unique keys
+            <option
+              key={`${currency.id}-${currency.code}`}
+              value={currency.id}
+              title={getCurrencyName(currency.code)}
+            >
+              {currency.code}
+            </option>
+          ))}
+        </select>
       </label>
       <label>
         Comment:
         <input
           type="text"
-          name="comment"
-          value={transaction.comment}
+          name="description"
+          value={transaction.description}
           onChange={handleChange}
           required
         />

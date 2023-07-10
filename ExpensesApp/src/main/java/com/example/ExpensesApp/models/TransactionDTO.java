@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class TransactionDTO {
-    private int transactionId;
+    private int id;
     private String title;
     private double amount;
     private String currencyCode;

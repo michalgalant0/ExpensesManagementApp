@@ -2,7 +2,7 @@ import React from 'react';
 
 import TransactionListRow from '../TransactionListRow';
 
-const TransactionList = ({ transactions, handleEdit }) => {
+const TransactionList = ({ transactions, handleEdit, currencies }) => {
   const [filterType, setFilterType] = React.useState('all');
   const [filterValue, setFilterValue] = React.useState('');
   const [sortBy, setSortBy] = React.useState(null);
@@ -33,12 +33,12 @@ const TransactionList = ({ transactions, handleEdit }) => {
       return true;
     } else if (filterType === 'day') {
       return transaction.date === filterValue;
-    } else if (filterType === 'category') {
-      return transaction.category.toLowerCase().includes(filterValue.toLowerCase());
+    } else if (filterType === 'categoryName') {
+      return transaction.categoryName.toLowerCase().includes(filterValue.toLowerCase());
     } else if (filterType === 'title') {
       return transaction.title.toLowerCase().includes(filterValue.toLowerCase());
-    } else if (filterType === 'currency') {
-      return transaction.currency.toLowerCase().includes(filterValue.toLowerCase());
+    } else if (filterType === 'currencyCode') {
+      return transaction.currencyCode.toLowerCase().includes(filterValue.toLowerCase());
     }
   };
 
@@ -65,9 +65,9 @@ const TransactionList = ({ transactions, handleEdit }) => {
           <select value={filterType} onChange={handleFilterTypeChange}>
             <option value="all">All</option>
             <option value="day">Day</option>
-            <option value="category">Category</option>
+            <option value="categoryName">Category</option>
             <option value="title">Title</option>
-            <option value="currency">Currency</option>
+            <option value="currencyCode">Currency</option>
           </select>
         </label>
         {filterType !== 'all' && (
@@ -80,12 +80,12 @@ const TransactionList = ({ transactions, handleEdit }) => {
       <table>
         <thead>
           <tr>
-            <th onClick={handleSort.bind(null, 'id')}>ID</th>
+            <th onClick={handleSort.bind(null, 'tmpId')}>ID</th>
             <th onClick={() => handleSort('title')}>
               Title {sortBy === 'title' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
             </th>
-            <th onClick={() => handleSort('category')}>
-              Category {sortBy === 'category' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            <th onClick={() => handleSort('categoryName')}>
+              Category {sortBy === 'categoryName' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
             </th>
             <th onClick={() => handleSort('date')}>
               Date {sortBy === 'date' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
@@ -93,8 +93,8 @@ const TransactionList = ({ transactions, handleEdit }) => {
             <th onClick={() => handleSort('amount')}>
               Amount {sortBy === 'amount' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
             </th>
-            <th onClick={() => handleSort('currency')}>
-              Currency {sortBy === 'currency' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
+            <th onClick={() => handleSort('currencyCode')}>
+              Currency {sortBy === 'currencyCode' && <span>{sortOrder === 'asc' ? '▲' : '▼'}</span>}
             </th>
             <th>Comment</th>
             {isHomePAge ? null : <th>Actions</th>}
@@ -106,6 +106,7 @@ const TransactionList = ({ transactions, handleEdit }) => {
               key={transaction.id}
               transaction={transaction}
               handleEdit={handleEdit}
+              currencies={currencies}
             />
           ))}
         </tbody>
