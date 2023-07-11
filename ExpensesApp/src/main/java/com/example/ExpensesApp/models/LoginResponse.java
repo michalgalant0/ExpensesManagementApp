@@ -8,4 +8,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LoginResponse {
     private int personId;
+    private String nickname;
 }

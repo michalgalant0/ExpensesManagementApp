@@ -1,19 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { CategoryContext } from '../../contexts/CategoryContext';
-import { CurrencyContext } from '../../contexts/CurrencyContext';
+import React, { useState, useEffect, useContext } from "react";
 
-const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction }) => {
-  const categories = useContext(CategoryContext)
-  const { currencies, getCurrencyName } = useContext(CurrencyContext)
-  
+import { CategoryContext } from "../../contexts/CategoryContext";
+import { CurrencyContext } from "../../contexts/CurrencyContext";
+
+import "./styles.css";
+
+const TransactionForm = ({
+  addTransaction,
+  editedTransaction,
+  updateTransaction,
+}) => {
+  const categories = useContext(CategoryContext);
+  const { currencies, getCurrencyName } = useContext(CurrencyContext);
+
   const [transaction, setTransaction] = useState({
-    id: '',
-    title: '',
-    categoryName: '',
-    date: '',
+    id: "",
+    title: "",
+    categoryName: "",
+    date: "",
     amount: 0,
-    currencyCode: '',
-    description: '',
+    currencyCode: "",
+    description: "",
   });
 
   useEffect(() => {
@@ -40,83 +47,59 @@ const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction 
     }
 
     setTransaction({
-      id: '',
-      title: '',
-      categoryName: '',
-      date: '',
+      id: "",
+      title: "",
+      categoryName: "",
+      date: "",
       amount: 0,
-      currencyCode: '',
-      description: '',
+      currencyCode: "",
+      description: "",
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{editedTransaction ? 'Edit transaction' : 'Add transaction'}</h2>
-      {
-        editedTransaction ?
-          <div>
-            Edited transaction: {transaction.tmpId}
-            <hr />
-          </div>
-          : ''
-      }
-      <label>
-        Title:
+    <form className="transaction-form" onSubmit={handleSubmit}>
+      <h2 className="form-title">
+        {editedTransaction ? "Edit transaction" : "Add transaction"}
+      </h2>
+      {editedTransaction ? (
+        <div>
+          Edited transaction: {transaction.tmpId}
+          <hr />
+        </div>
+      ) : (
+        ""
+      )}
+      <div className="form-row">
+        <label className="form-label">Title:</label>
         <input
           type="text"
           name="title"
+          className="form-input"
           value={transaction.title}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Category:
-        <select
-          name="categoryName"
-          value={transaction.categoryName}
-          onChange={handleChange}
-          required
-        >
-          {categories.map(category => (
-            // different way of key generating - removed error with non-unique keys
-            <option key={`${category.id}-${category.name}`} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        Date:
-        <input
-          type="date"
-          name="date"
-          value={transaction.date}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        Amount:
+      </div>
+      <div className="form-row">
+        <label className="form-label">Amount:</label>
         <input
           type="number"
           name="amount"
+          className="form-input half-width"
           value={transaction.amount}
           onChange={handleChange}
           required
         />
-      </label>
-      <label>
-        Currency:
+        <label className="form-label">Currency:</label>
         <select
           name="currencyCode"
+          className="form-select half-width"
           value={transaction.currencyCode}
           onChange={handleChange}
           required
         >
-          {currencies.map(currency => (
-            // different way of key generating - removed error with non-unique keys
+          {currencies.map((currency) => (
             <option
               key={`${currency.id}-${currency.code}`}
               value={currency.id}
@@ -126,18 +109,47 @@ const TransactionForm = ({ addTransaction, editedTransaction, updateTransaction 
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Comment:
+      </div>
+      <div className="form-row">
+        <label className="form-label">Category:</label>
+        <select
+          name="categoryName"
+          className="form-select"
+          value={transaction.categoryName}
+          onChange={handleChange}
+          required
+        >
+          {categories.map((category) => (
+            <option key={`${category.id}-${category.name}`} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="form-row">
+        <label className="form-label">Date:</label>
         <input
-          type="text"
-          name="description"
-          value={transaction.description}
+          type="date"
+          name="date"
+          className="form-input"
+          value={transaction.date}
           onChange={handleChange}
           required
         />
-      </label>
-      <button type="submit">{editedTransaction ? 'Save' : 'Add'}</button>
+      </div>
+      <div className="form-row">
+        <label className="form-label">Comment:</label>
+        <textarea
+          name="description"
+          className="form-textarea"
+          value={transaction.description}
+          onChange={handleChange}
+          required
+        ></textarea>
+      </div>
+      <button type="submit" className="form-button">
+        {editedTransaction ? "Save" : "Add"}
+      </button>
     </form>
   );
 };

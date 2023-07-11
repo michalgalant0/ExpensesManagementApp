@@ -50,7 +50,7 @@ Application's backend part in Spring Boot.
 #### look
 
 - chart widgets on user's page &cross;
-- proper styles in the app &cross;
+- proper styles in the app &check;
   - dark mode &cross;
 
 ---

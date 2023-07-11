@@ -31,7 +31,7 @@ public class PersonController {
                 .orElseThrow(() -> new RuntimeException("user not found"));
 
         if (person.getPassword().equals(password))
-            return new LoginResponse (person.getPersonId());
+            return new LoginResponse (person.getPersonId(), person.getNickname());
         else
             throw new RuntimeException("wrong login data");
     }
