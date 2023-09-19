@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 import TransactionListRow from "../TransactionListRow";
 
 import "./styles.css";
 
 const TransactionList = ({ transactions, handleEdit, currencies }) => {
-  const [filterType, setFilterType] = React.useState("all");
-  const [filterValue, setFilterValue] = React.useState("");
-  const [sortBy, setSortBy] = React.useState(null);
-  const [sortOrder, setSortOrder] = React.useState("asc");
+  const [filterType, setFilterType] = useState("all");
+  const [filterValue, setFilterValue] = useState("");
+  const [sortBy, setSortBy] = useState(null);
+  const [sortOrder, setSortOrder] = useState("asc");
 
   // check if user is on HomePage
   const isHomePAge = window.location.pathname === "/";

@@ -32,11 +32,17 @@ Application's backend part in Spring Boot.
 
 ---
 
+#### security
+
+- all forms validation on &cross;
+  - backend &cross;
+  - frontend &check;
+- safer authorization logic &cross;
+  - credentials encryption on backend &cross;
+
 #### exceptions & error handling
 
 - specific exception handlers on frontend and backend &cross;
-- safer authorization logic &cross;
-  - credentials encryption &cross;
 
 ---
 

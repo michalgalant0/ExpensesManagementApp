@@ -3,6 +3,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { CategoryContext } from "../../contexts/CategoryContext";
 import { CurrencyContext } from "../../contexts/CurrencyContext";
 
+import TransactionValidator from "../../validators/TransactionValidator";
+
 import "./styles.css";
 
 const TransactionForm = ({
@@ -18,10 +20,12 @@ const TransactionForm = ({
     title: "",
     categoryName: "",
     date: "",
-    amount: 0,
+    amount: "",
     currencyCode: "",
     description: "",
   });
+
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     if (editedTransaction) {
@@ -40,21 +44,32 @@ const TransactionForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (editedTransaction) {
-      updateTransaction(transaction);
-    } else {
-      addTransaction(transaction);
-    }
+    // validation part
+    const validationErrors = TransactionValidator(
+      transaction,
+      currencies,
+      categories
+    );
 
-    setTransaction({
-      id: "",
-      title: "",
-      categoryName: "",
-      date: "",
-      amount: 0,
-      currencyCode: "",
-      description: "",
-    });
+    if (Object.keys(validationErrors).length > 0)
+      setValidationErrors(validationErrors);
+    else {
+      if (editedTransaction) {
+        updateTransaction(transaction);
+      } else {
+        addTransaction(transaction);
+      }
+
+      setTransaction({
+        id: "",
+        title: "",
+        categoryName: "",
+        date: "",
+        amount: 0.0,
+        currencyCode: "",
+        description: "",
+      });
+    }
   };
 
   return (
@@ -78,8 +93,11 @@ const TransactionForm = ({
           className="form-input"
           value={transaction.title}
           onChange={handleChange}
-          required
+          // required
         />
+        {validationErrors.title && (
+          <p className="form-error">{validationErrors.title}</p>
+        )}
       </div>
       <div className="form-row">
         <label className="form-label">Amount:</label>
@@ -89,16 +107,20 @@ const TransactionForm = ({
           className="form-input half-width"
           value={transaction.amount}
           onChange={handleChange}
-          required
+          // required
         />
+        {validationErrors.amount && (
+          <p className="form-error">{validationErrors.amount}</p>
+        )}
         <label className="form-label">Currency:</label>
         <select
           name="currencyCode"
           className="form-select half-width"
           value={transaction.currencyCode}
           onChange={handleChange}
-          required
+          // required
         >
+          <option value={null}>pick currency from list</option>
           {currencies.map((currency) => (
             <option
               key={`${currency.id}-${currency.code}`}
@@ -109,6 +131,9 @@ const TransactionForm = ({
             </option>
           ))}
         </select>
+        {validationErrors.currency && (
+          <p className="form-error">{validationErrors.currency}</p>
+        )}
       </div>
       <div className="form-row">
         <label className="form-label">Category:</label>
@@ -117,14 +142,18 @@ const TransactionForm = ({
           className="form-select"
           value={transaction.categoryName}
           onChange={handleChange}
-          required
+          // required
         >
+          <option value={null}>pick category from list</option>
           {categories.map((category) => (
             <option key={`${category.id}-${category.name}`} value={category.id}>
               {category.name}
             </option>
           ))}
         </select>
+        {validationErrors.category && (
+          <p className="form-error">{validationErrors.category}</p>
+        )}
       </div>
       <div className="form-row">
         <label className="form-label">Date:</label>
@@ -134,8 +163,11 @@ const TransactionForm = ({
           className="form-input"
           value={transaction.date}
           onChange={handleChange}
-          required
+          // required
         />
+        {validationErrors.date && (
+          <p className="form-error">{validationErrors.date}</p>
+        )}
       </div>
       <div className="form-row">
         <label className="form-label">Comment:</label>
@@ -144,8 +176,11 @@ const TransactionForm = ({
           className="form-textarea"
           value={transaction.description}
           onChange={handleChange}
-          required
+          // required
         ></textarea>
+        {validationErrors.description && (
+          <p className="form-error">{validationErrors.description}</p>
+        )}
       </div>
       <button type="submit" className="form-button">
         {editedTransaction ? "Save" : "Add"}
