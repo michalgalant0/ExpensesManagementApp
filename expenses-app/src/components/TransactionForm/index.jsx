@@ -93,7 +93,7 @@ const TransactionForm = ({
           className="form-input"
           value={transaction.title}
           onChange={handleChange}
-          // required
+          required
         />
         {validationErrors.title && (
           <p className="form-error">{validationErrors.title}</p>
@@ -107,7 +107,7 @@ const TransactionForm = ({
           className="form-input half-width"
           value={transaction.amount}
           onChange={handleChange}
-          // required
+          required
         />
         {validationErrors.amount && (
           <p className="form-error">{validationErrors.amount}</p>
@@ -118,7 +118,7 @@ const TransactionForm = ({
           className="form-select half-width"
           value={transaction.currencyCode}
           onChange={handleChange}
-          // required
+          required
         >
           <option value={null}>pick currency from list</option>
           {currencies.map((currency) => (
@@ -142,7 +142,7 @@ const TransactionForm = ({
           className="form-select"
           value={transaction.categoryName}
           onChange={handleChange}
-          // required
+          required
         >
           <option value={null}>pick category from list</option>
           {categories.map((category) => (
@@ -163,7 +163,7 @@ const TransactionForm = ({
           className="form-input"
           value={transaction.date}
           onChange={handleChange}
-          // required
+          required
         />
         {validationErrors.date && (
           <p className="form-error">{validationErrors.date}</p>
@@ -176,7 +176,6 @@ const TransactionForm = ({
           className="form-textarea"
           value={transaction.description}
           onChange={handleChange}
-          // required
         ></textarea>
         {validationErrors.description && (
           <p className="form-error">{validationErrors.description}</p>
