@@ -1,69 +1,83 @@
-import React, { createContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
-export const TransactionContext = createContext()
+export const TransactionContext = createContext();
 
 export const TransactionProvider = ({ children }) => {
-  const [transactions, setTransactions] = useState([])
-  const [editedTransaction, setEditedTransaction] = useState(null)
+  const [transactions, setTransactions] = useState([]);
+  const [editedTransaction, setEditedTransaction] = useState(null);
 
   useEffect(() => {
-    const personId = sessionStorage.getItem('person_id');
+    const personId = sessionStorage.getItem("person_id");
     if (personId) {
       fetchTransactions(personId);
     }
-  }, [])
+  }, []);
 
   const fetchTransactions = async (personId) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/transaction/list/${personId}`)
+      const response = await axios.get(
+        `http://localhost:8080/api/transaction/list/${personId}`
+      );
       setTransactions(
         response.data.map((transaction, index) => ({
           ...transaction,
           id: transaction.id,
-          tmpId: index+1,
+          tmpId: index + 1,
         }))
-      )
+      );
     } catch (error) {
-      console.error(`Error fetching transactions: ${error}`)
+      console.error(`Error fetching transactions: ${error}`);
     }
-  }
+  };
 
   const addTransaction = async (transaction) => {
-    console.log("ADD TRANSACTION DATA")
-    console.log(transaction)
+    console.log("ADD TRANSACTION DATA");
+    console.log(transaction);
     try {
-      const response = await axios.post('http://localhost:8080/api/transaction', transaction);
+      const response = await axios.post(
+        "http://localhost:8080/api/transaction",
+        transaction
+      );
       setTransactions([...transactions, response.data]);
     } catch (error) {
       console.error(`Error adding transaction: ${error}`);
     }
-  }
+    window.location.reload();
+  };
 
   const deleteTransaction = async (id) => {
-    console.log("DELETE TRANSACTION DATA")
-    console.log(id)
+    console.log("DELETE TRANSACTION DATA");
+    console.log(id);
     try {
       await axios.delete(`http://localhost:8080/api/transaction/${id}`);
-      const updatedTransactions = transactions.filter((transaction) => transaction.id !== id);
+      const updatedTransactions = transactions.filter(
+        (transaction) => transaction.id !== id
+      );
       setTransactions(updatedTransactions);
     } catch (error) {
       console.error(`Error deleting transaction: ${error}`);
     }
-  }
+    window.location.reload();
+  };
 
   const editTransaction = (id) => {
-    console.log("EDIT TRANSACTION DATA")
-    console.log(id)
-    const transactionToEdit = transactions.find((transaction) => transaction.id === id);
+    console.log("EDIT TRANSACTION DATA");
+    console.log(id);
+    const transactionToEdit = transactions.find(
+      (transaction) => transaction.id === id
+    );
     setEditedTransaction(transactionToEdit);
-  }
+  };
 
   const updateTransaction = async (updatedTransaction) => {
-    console.log("UPDATE TRANSACTION DATA")
-    console.log(updatedTransaction)
+    console.log("UPDATE TRANSACTION DATA");
+    console.log(updatedTransaction);
     try {
-      const response = await axios.put(`http://localhost:8080/api/transaction/${updatedTransaction.id}`, updatedTransaction);
+      const response = await axios.put(
+        `http://localhost:8080/api/transaction/${updatedTransaction.id}`,
+        updatedTransaction
+      );
       setTransactions((prevTransactions) =>
         prevTransactions.map((transaction) =>
           transaction.id === updatedTransaction.id ? response.data : transaction
@@ -73,7 +87,9 @@ export const TransactionProvider = ({ children }) => {
     } catch (error) {
       console.error(`Error updating transaction: ${error}`);
     }
-  }
+
+    window.location.reload();
+  };
 
   return (
     <TransactionContext.Provider
@@ -83,10 +99,10 @@ export const TransactionProvider = ({ children }) => {
         deleteTransaction,
         editTransaction,
         updateTransaction,
-        editedTransaction
+        editedTransaction,
       }}
     >
       {children}
     </TransactionContext.Provider>
-  )
-}
+  );
+};

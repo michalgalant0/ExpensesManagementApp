@@ -25,8 +25,13 @@ const TransactionsPage = () => {
         addTransaction={addTransaction}
         editedTransaction={editedTransaction}
         updateTransaction={updateTransaction}
+        className="transaction-form"
       />
-      <TransactionList transactions={transactions} handleEdit={handleEdit} />
+      <TransactionList
+        transactions={transactions}
+        handleEdit={handleEdit}
+        className="transaction-list"
+      />
     </div>
   );
 };

@@ -1,72 +1,79 @@
 .list-title {
-    font-size: 24px;
-    margin-bottom: 16px;
-  }
-  
-  .filter-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .filter-label {
-    margin-right: 8px;
-  }
-  
-  .filter-select {
-    width: 150px;
-    height: 30px;
-    padding: 4px;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-  }
-  
-  .filter-input {
-    width: 200px;
-    height: 30px;
-    padding: 4px;
-    border: 1px solid #dddddd;
-    border-radius: 4px;
-  }
-  
-  .transaction-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table-header {
-    padding: 8px;
-    background-color: #f2f2f2;
-    text-align: left;
-    cursor: pointer;
-  }
-  
-  .table-header span {
-    font-size: 12px;
-    margin-left: 4px;
-  }
-  
-  .transaction-row:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .transaction-row:hover {
-    background-color: #e3e3e3;
-  }
-  
-  .transaction-data {
-    padding: 8px;
-  }
-  
-  .transaction-actions button {
-    margin-right: 8px;
-    background-color: transparent;
-    border: none;
-    color: #2196f3;
-    cursor: pointer;
-  }
-  
-  .transaction-actions button:hover {
-    text-decoration: underline;
-  }
-  
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filter-label {
+  margin-right: 8px;
+}
+
+#filter-label-value {
+  margin-left: 16px;
+}
+
+.filter-input {
+  margin-left: 8px;
+}
+
+.filter-select {
+  width: 150px;
+  height: 30px;
+  padding: 4px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+.filter-input {
+  width: 200px;
+  height: 30px;
+  padding: 4px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-header {
+  padding: 8px;
+  background-color: #f2f2f2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.table-header span {
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.transaction-row:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.transaction-row:hover {
+  background-color: #e3e3e3;
+}
+
+.transaction-data {
+  padding: 8px;
+}
+
+.transaction-actions button {
+  margin-right: 8px;
+  background-color: transparent;
+  border: none;
+  color: #2196f3;
+  cursor: pointer;
+}
+
+.transaction-actions button:hover {
+  text-decoration: underline;
+}

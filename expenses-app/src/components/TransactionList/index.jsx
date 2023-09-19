@@ -81,7 +81,7 @@ const TransactionList = ({ transactions, handleEdit, currencies }) => {
           <option value="currencyCode">Currency</option>
         </select>
         {filterType !== "all" && (
-          <label className="filter-label">
+          <label className="filter-label" id="filter-label-value">
             Value:
             <input
               className="filter-input"

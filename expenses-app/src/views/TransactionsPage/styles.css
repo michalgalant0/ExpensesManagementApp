@@ -1,4 +1,13 @@
 .transactions-page {
-    padding: 16px;
-  }
-  
+  padding: 16px;
+  display: flex;
+}
+
+.transaction-form {
+  margin: 10pt 30pt 0 10pt;
+  width: 350pt;
+}
+
+.transaction-list {
+  flex: 1;
+}

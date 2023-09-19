@@ -1,7 +1,3 @@
-// import { useContext } from "react";
-// import { CurrencyContext } from "../contexts/CurrencyContext";
-// import { CategoryContext } from "../contexts/CategoryContext";
-
 const validateTitle = (title) => {
   const minLength = 3,
     maxLength = 30;

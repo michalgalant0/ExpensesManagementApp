@@ -20,9 +20,10 @@ const TransactionForm = ({
     title: "",
     categoryName: "",
     date: "",
-    amount: "",
+    amount: 0,
     currencyCode: "",
     description: "",
+    personId: parseInt(sessionStorage.getItem("person_id"), 10),
   });
 
   const [validationErrors, setValidationErrors] = useState({});
@@ -65,7 +66,7 @@ const TransactionForm = ({
         title: "",
         categoryName: "",
         date: "",
-        amount: 0.0,
+        amount: 0,
         currencyCode: "",
         description: "",
       });
